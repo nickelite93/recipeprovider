@@ -1,5 +1,7 @@
 package com.project.recipeprovider.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.project.recipeprovider.request.CreateIngredientRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,14 +20,21 @@ public class Ingredient {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     private String name;
+
+    private String quantity;
 
     private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
+    @JsonBackReference
     private Recipe recipe;
 
+    public Ingredient(CreateIngredientRequest createIngredientRequest) {
+        this.name = createIngredientRequest.getName();
+        this.quantity = createIngredientRequest.getQuantity();
+    }
 }

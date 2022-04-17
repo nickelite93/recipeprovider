@@ -1,0 +1,21 @@
+How to run docker containers.
+
+docker build
+
+1. MYSQL CONTAINER:
+
+- docker container run --name mysqldb --network recipe-mysql -e MYSQL_ROOT_PASSWORD=password1 -e MYSQL_DATABASE=recipe_schema -d mysql:8
+
+
+2. APP CONTAINER:
+
+- docker container run --network recipe-mysql --name recipe-container -p 8080:8080 -d recipe-test-container-0.3
+
+
+
+connect to container
+
+- docker container exec -it mysqldb bash
+
+- docker logs recipe-container
+

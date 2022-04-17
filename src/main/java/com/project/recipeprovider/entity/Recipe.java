@@ -1,5 +1,7 @@
 package com.project.recipeprovider.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.project.recipeprovider.request.CreateRecipeRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ public class Recipe {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     private String name;
 
@@ -27,7 +29,13 @@ public class Recipe {
     private String method;
 
     @OneToMany(mappedBy = "recipe")
+    @JsonManagedReference
     private List<Ingredient> ingredients = new ArrayList<>();
+
+    public Recipe(CreateRecipeRequest createRecipeRequest){
+        this.name = createRecipeRequest.getName();
+        this.method = createRecipeRequest.getMethod();
+    }
 
 
 }
